@@ -694,3 +694,87 @@
   "zLayers": 100,
   "emitters": []
 }
+
+{
+  "status": {
+    "code": 10000,
+    "description": "Ok",
+    "req_id": "bf9aee52bc43bae15377081e7f103042"
+  },
+  "outputs": [
+    {
+      "id": "1736cbd91abd4d69b608fc14c0c802bb",
+      "status": {
+        "code": 10000,
+        "description": "Ok"
+      },
+      "created_at": "2023-06-01T22:27:14.413276928Z",
+      "model": {
+        "id": "face-detection",
+        "name": "Face",
+        "created_at": "2020-11-25T16:50:24.453038Z",
+        "modified_at": "2022-10-11T17:30:18.021257Z",
+        "app_id": "main",
+        "model_version": {
+          "id": "6dc7e46bc9124c5c8824be4822abe105",
+          "created_at": "2021-03-04T17:40:26.081729Z",
+          "status": {
+            "code": 21100,
+            "description": "Model is trained and ready"
+          },
+          "visibility": {
+            "gettable": 50
+          },
+          "app_id": "main",
+          "user_id": "clarifai",
+          "metadata": {}
+        },
+        "user_id": "clarifai",
+        "model_type_id": "visual-detector",
+        "visibility": {
+          "gettable": 50
+        },
+        "toolkits": [],
+        "use_cases": [],
+        "languages": [],
+        "languages_full": [],
+        "check_consents": [],
+        "workflow_recommended": false
+      },
+      "input": {
+        "id": "2b456fcb429844f49e39808453e6143d",
+        "data": {
+          "image": {
+            "url": "https://im.rediff.com/getahead/2021/jan/16frieda-pinto.jpg"
+          }
+        }
+      },
+      "data": {
+        "regions": [
+          {
+            "id": "c586b4d6ab0bf13d3d0d3316fe1b7d47",
+            "region_info": {
+              "bounding_box": {
+                "top_row": 0.16882712,
+                "left_col": 0.30476373,
+                "bottom_row": 0.5389141,
+                "right_col": 0.68318605
+              }
+            },
+            "data": {
+              "concepts": [
+                {
+                  "id": "ai_b1b1b1b1",
+                  "name": "BINARY_POSITIVE",
+                  "value": 0.99999785,
+                  "app_id": "main"
+                }
+              ]
+            },
+            "value": 0.99999785
+          }
+        ]
+      }
+    }
+  ]
+}

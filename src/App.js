@@ -48,7 +48,8 @@ class App extends Component {
     super();
     this.state = {
       input: '',
-      imageUrl: ''
+      imageUrl: '',
+      boxes: [],
     }
   }
 
@@ -57,19 +58,51 @@ class App extends Component {
     this.setState({ input: event.target.value })
   }
 
+  calculateFaceLocation = (board) => {
+    const clarifaiFace = board;
+    const image = document.getElementById('faceImg');
+    const width = Number(image.width);
+    const height = Number(image.height);
+
+    return {
+      leftCol: clarifaiFace.left_col * width,
+      topRow: clarifaiFace.top_row * height,
+      rightCol: width - (clarifaiFace.right_col * width),
+      bottomRow: height - (clarifaiFace.bottom_row * height)
+    }
+  }
+  // const sides = [leftCol, topRow, rightCol, bottomRow];
+
+  //console.log(boxes)
+  displayFaceBox = (boxes) => {
+    this.setState({ boxes: boxes })
+  }
+
+  // console.log(bor);
+  executeBoxes = (border) => {
+    let boxa = [];
+    border.forEach((bor, b) => {
+      let box1 = this.calculateFaceLocation(bor.region_info.bounding_box);
+      boxa.push(box1);
+    })
+    return boxa;
+  }
+
   onButtonSubmit = () => {
     this.setState({ imageUrl: this.state.input })
     console.log("click")
 
-    // .then(result => console.log(result))
     fetch(`https://api.clarifai.com/v2/models/face-detection/versions/6dc7e46bc9124c5c8824be4822abe105/outputs`, image(this.state.input))
       .then(response => response.text())
       .then(result => JSON.parse(result))
-      .then(data => data.outputs[0].data.regions[0].region_info.bounding_box)
-      .then(borders => console.log( borders.top_row+" " + borders.right_col+" " +borders.bottom_row+" " +borders.left_col))
+      .then(data => data.outputs[0].data.regions)
+      .then(borders => this.displayFaceBox(this.executeBoxes(borders)))
       .catch(error => console.log('error', error));
 
   }
+  // .then(boarders => this.displayFaceBox(this.calculateFaceLocation(boarders)))
+  // .then(result => console.log(result))
+  //.then(borders => console.log(borders.top_row + " " + borders.right_col + " " + borders.bottom_row + " " + borders.left_col))
 
 
 
@@ -82,7 +115,7 @@ class App extends Component {
         <Rank />
         <ImageLinkForm onInputChange={this.onInputChange} onButtonSubmit={this.onButtonSubmit} />
 
-        <FaceRecognition imageUrl={this.state.imageUrl} />
+        <FaceRecognition boxe={this.state.boxes} imageUrl={this.state.imageUrl} />
 
       </div>
     );

@@ -6,23 +6,27 @@ import './FaceRecognition.css';
 
 const FaceRecognition = ({ imageUrl, boxe }) => {
 
-    return (
-        <div className="center ma">
-            <div className="absolute nt2">
-                <img
-                    id={"faceImg"}
-                    src={imageUrl}
-                    alt={"Finding Face Image"}
-                    width="500px"
-                    height={'auto'}
-                />
+    if (imageUrl) {
+        return (
+            <div className="center ma">
+                <div className="absolute nt2">
+                    <img
+                        id={"faceImg"}
+                        src={imageUrl}
+                        alt={"Finding Face Image"}
+                        width="500px"
+                        height={'auto'}
+                    />
 
 
-                <Boxes boxes={{boxe}} />
+                    <Boxes boxes={{ boxe }} />
 
+                </div>
             </div>
-        </div>
-    )
+        )
+
+    }
+
 }
 
 

@@ -13,35 +13,6 @@ import './App.css';
 
 //const IMAGE_URL = 'https://im.rediff.com/getahead/2021/jan/16frieda-pinto.jpg';
 
-function image(IMAGE_URL) {
-  const raw =
-    JSON.stringify({
-      "user_app_id": {
-        "user_id": "clarifai",
-        "app_id": "main"
-      },
-      "inputs": [
-        {
-          "data": {
-            "image": {
-              "url": IMAGE_URL
-            }
-          }
-        }
-      ]
-    });
-
-  const requestOptions = {
-    method: 'POST',
-    headers: {
-      'Accept': 'application/json',
-      'Authorization': 'Key ' + 'fd41c73feabc4a9caf73460742469774'
-    },
-    body: raw
-  };
-
-  return requestOptions;
-}
 
 const initialStates = {
   input: '',
@@ -116,7 +87,13 @@ class App extends Component {
     this.setState({ imageUrl: this.state.input })
 
 
-    fetch(`https://api.clarifai.com/v2/models/face-detection/versions/6dc7e46bc9124c5c8824be4822abe105/outputs`, image(this.state.input))
+    fetch('http://localhost:3000/imageurl', {
+      method: 'post',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        input: this.state.input
+      })
+    })
       .then(response => {
         if (response) {
           fetch('http://localhost:3000/image', {
@@ -131,10 +108,11 @@ class App extends Component {
             })
             .catch(console.log)
         }
-        return response.text()
+        return response.json()
       })
-      .then(result => JSON.parse(result))
-      .then(data => data.outputs[0].data.regions)
+      // .then(result => JSON.parse(result))
+      // .then(data => data.outputs[0].data.regions)
+      // .then(bd => {console.log(bd)})
       .then(borders => this.displayFaceBox(this.executeBoxes(borders)))
       .catch(error => console.log('error', error));
 

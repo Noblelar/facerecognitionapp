@@ -13,6 +13,10 @@ import './App.css';
 
 //const IMAGE_URL = 'https://im.rediff.com/getahead/2021/jan/16frieda-pinto.jpg';
 
+/*! 
+const localServer = 'http://localhost:3000';
+const server = 'https://peaceful-isle-royale-43590-936c4f26feb7.herokuapp.com';
+*/
 
 const initialStates = {
   input: '',
@@ -87,7 +91,7 @@ class App extends Component {
     this.setState({ imageUrl: this.state.input })
 
 
-    fetch('http://localhost:3000/imageurl', {
+    fetch('https://peaceful-isle-royale-43590-936c4f26feb7.herokuapp.com/imageurl', {
       method: 'post',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -96,7 +100,7 @@ class App extends Component {
     })
       .then(response => {
         if (response) {
-          fetch('http://localhost:3000/image', {
+          fetch('https://peaceful-isle-royale-43590-936c4f26feb7.herokuapp.com/image', {
             method: 'put',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({

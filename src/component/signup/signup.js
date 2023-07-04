@@ -22,7 +22,7 @@ class Signup extends Component {
     }
 
     onSubmitSignUp = (e) => {
-        fetch('http://localhost:3000/register', {
+        fetch('https://peaceful-isle-royale-43590-936c4f26feb7.herokuapp.com/register', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
